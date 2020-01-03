@@ -1,0 +1,36 @@
+.top-bar {
+    position: relative;
+    background-color: #ffffff;
+    padding: 10px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.top-bar-left {
+    display: inline-block;
+    position: absolute;
+    padding-top: 10px;
+    padding-left: 20px;
+    left: 0px;
+}
+
+.top-bar-center {
+    left: 0%;
+    right: 0%;
+    text-align: center;
+}
+
+.top-bar-icon {
+    padding: 10px;
+    margin-right: 20px;
+    color: #8d8d8d;
+    cursor: pointer;
+    outline: none !important;
+}
+
+.icon-active {
+    color: #555555;
+    border: 1px solid rgb(214, 214, 214);
+    border-radius: 4px;
+    transition: all 0.4s ease-out 0s;
+}

@@ -1,0 +1,194 @@
+.board-card {
+    cursor: pointer;
+    height: 140px;
+    padding: 5px;
+    padding-bottom: 0;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2) !important;
+    border-radius: 5px !important;
+    transition: 0.3s;
+}
+
+.board-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.board-card-new {
+    cursor: pointer;
+    text-align: center;
+    height: 140px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-style: dashed !important;
+    border-color: #b3b2b2 !important;
+    border-radius: 5px !important;
+    padding: 5% 0;
+    transition: 0.2s;
+}
+
+.board-card-new p {
+    padding: 10% 0;
+    font-size: 16px;
+    color: #979797;
+    transition: 0.3s;
+}
+
+.board-card-new:hover,
+.board-card-new:hover p {
+    border-color: #585858 !important;
+    color: #585858;
+}
+
+.board-card-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 50px;
+}
+
+.board-card-date {
+    font-size: 12px;
+    color: #969696;
+    margin-bottom: 0;
+}
+
+.positive-icon {
+    color: #23c46b;
+}
+
+.negative-icon {
+    color: #d83b3b;
+}
+
+.neutral-icon {
+    color: #e79924;
+}
+
+.interview-icon {
+    font-size: 22px;
+}
+
+.interview-icon-text {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.hidden-icon {
+    opacity: 0;
+}
+
+.no-data {
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.edit-icon {
+    color: #5b7dff;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.edit-icon:hover {
+    opacity: 1;
+}
+
+.delete-icon {
+    color: #796a6c;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.delete-icon:hover {
+    opacity: 1;
+}
+
+.table-action {
+    padding: 10px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.stats-container {
+    padding: 50px;
+    padding-left: 240px;
+    padding-right: 240px;
+}
+
+.boardlist {
+    max-height: 620px;
+    padding-right: 15px;
+    padding-left: 10px;
+}
+
+.job-company-name {
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.job-role {
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+.job-modal-header {
+    padding: 20px 20px 5px 20px;
+}
+
+.job-modal-company {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.job-modal-role {
+    font-size: 18px;
+}
+
+.job-modal-icon {
+    float: left;
+    padding-right: 20px;
+}
+
+.editable-text {
+    margin-bottom: 6px;
+    padding-top: 3px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 2px;
+    transition: background 0.3s ease;
+}
+
+.editable-text:hover {
+    background: rgba(220, 220, 220, 0.4)/* Green background with 30% opacity */
+}
+
+.job-modal-info {
+    font-weight: bold;
+}
+
+.job-modal-note-card {
+    text-align: left;
+    padding: 30px;
+    margin-bottom: 20px;
+    transition: box-shadow .2s;
+    border-radius: 5px;
+    border: thin solid #ccc;
+    background: #fff;
+}
+
+.job-modal-note-card:hover {
+    box-shadow: 0 0 11px rgba(33, 33, 33, .2);
+}
+
+.lighter-text {
+    color: rgb(189, 189, 189);
+}
+
+.pin {
+    cursor: pointer !important;
+    color: #354fb8;
+}

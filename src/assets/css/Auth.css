@@ -1,0 +1,43 @@
+a:hover {
+    text-decoration: none;
+}
+
+.auth {
+    background-color: #2D3646;
+}
+
+.brand_name {
+    margin-left: 13px;
+}
+
+.brand_name_full {
+    font-size: 8px;
+    line-height: 1;
+    letter-spacing: 2px;
+    color: gold;
+}
+
+.brand_name_initial {
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 10px;
+    color: gold;
+    text-shadow: 1px 1px gray;
+}
+
+.auth_card {
+    background-color: #354052;
+    border: none;
+}
+
+.auth_card label {
+    color: #ADB5BD;
+}
+
+.auth_desc {
+    color: #ADB5BD;
+}
+
+.auth_head {
+    color: gold;
+}

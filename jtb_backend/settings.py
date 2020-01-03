@@ -101,10 +101,10 @@ WSGI_APPLICATION = 'jtb_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku_3aa05d537f0c91c',
+        'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USERNAME'),
         'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('CLEARDB_DATABASE_URL'),
+        'HOST': os.environ.get('DB_HOST'),
         'PORT': 3306,
         'OPTIONS': {
             'charset': 'utf8'

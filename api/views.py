@@ -29,8 +29,10 @@ class StageViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
 class BoardListViewSet(viewsets.ModelViewSet):
-    queryset = BoardList.objects.all()
     serializer_class = BoardListSerializer
+
+    def get_queryset(self):
+        return BoardList.objects.all().order_by('id')
 
     def get_permissions(self):
         permission_classes = []

@@ -105,7 +105,7 @@ class BoardListSerializer(RelationModelSerializer):
 class CompanySerializer(RelationModelSerializer):
     class Meta:
         model = Company
-        fields = ('id', 'name', 'icon', 'description')
+        fields = ('id', 'name', 'logo_url', 'description', 'website', 'headquarters', 'industry', 'founded_year')
 
 class BoardSerializer(RelationModelSerializer):
     user = AuthUserSerializer(read_only=True, is_relation=True)

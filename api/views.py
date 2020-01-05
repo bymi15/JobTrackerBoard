@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.renderers import JSONRenderer
 from rest_framework.exceptions import PermissionDenied
-from rest_framework import viewsets, generics, status
+from rest_framework import viewsets, generics, status, filters
 from knox.models import AuthToken
 from .models import User, Stage, Company, Board, Application, Interview, BoardList, Note, Question
 from .serializers import NoteSerializer, StageSerializer, ApplicationSerializer, BoardListSerializer, InterviewSerializer, QuestionSerializer, CompanySerializer, BoardSerializer, UserSerializer, APIUserSerializer, LoginSerializer, ChangePasswordSerializer
@@ -74,6 +74,8 @@ class BoardViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 class CompanyViewSet(viewsets.ModelViewSet):
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
 

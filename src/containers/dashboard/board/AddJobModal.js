@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { fetchBoardlists } from '../../../actions/api_boardlist';
+import { searchCompany, clearSearch } from '../../../actions/api_company';
+import CompanySearchText from "../../../components/CompanySearchText";
 
 import {
     FormGroup,
@@ -19,6 +21,7 @@ class AddJobModal extends React.Component {
 
         this.state = {
             company_name: "",
+            logo_url: null,
             role: "",
             board_list: 1
         };
@@ -27,6 +30,17 @@ class AddJobModal extends React.Component {
     handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
+        if(name==="company_name"){
+            if(value.trim()){
+                this.props.searchCompany(value);
+            }else{
+                this.props.clearSearch();
+            }
+        }
+    }
+
+    handleSelectCompany = (company) => {
+        this.setState({ company_name: company.name, logo_url: company.logo_url });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -36,7 +50,7 @@ class AddJobModal extends React.Component {
     }
 
     render() {
-        const { boardlists, isOpen, toggle, saveModal } = this.props;
+        const { boardlists, isOpen, toggle, saveModal, companies } = this.props;
 
         return (
             <React.Fragment>
@@ -47,7 +61,7 @@ class AddJobModal extends React.Component {
                     <ModalBody className="text-center m-3">
                         <FormGroup className="text-left">
                             <Label>Company:</Label>
-                            <Input type="text" name="company_name" onChange={this.handleChange} />
+                            <CompanySearchText name="company_name" value={this.state.company_name} onChange={this.handleChange} handleSelectCompany={this.handleSelectCompany} companies={companies}/>
                         </FormGroup>
                         <FormGroup className="text-left">
                             <Label>Job Title:</Label>
@@ -78,11 +92,14 @@ class AddJobModal extends React.Component {
 const mapStateToProps = state => ({
     error: state.api_application.error,
     isLoading: state.api_application.isLoading,
+    companies: state.api_company.companies,
     boardlists: state.api_boardlist.boardlists
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchBoardlists: () => dispatch(fetchBoardlists())
+    fetchBoardlists: () => dispatch(fetchBoardlists()),
+    searchCompany: (query) => dispatch(searchCompany(query)),
+    clearSearch: () => dispatch(clearSearch())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddJobModal);

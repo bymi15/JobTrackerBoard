@@ -26,6 +26,7 @@ class DashboardMap extends React.Component {
             const { lat, lng } = response.results[0].geometry.location;
             var res = {
                id: app.id,
+               board_id: app.board.id,
                company_name: app.company_name,
                address: location,
                lat: lat,
@@ -40,30 +41,35 @@ class DashboardMap extends React.Component {
        );
    }
 
-   componentDidMount() {
-      if(!this.props.pins){
-         Geocode.setApiKey("AIzaSyD1VaM_1NFrzGdWPo38YSbx3_IwZ0QODg8");
-         var promises = [];
+   boardHasChanged = () => {
+      if(this.props.pins && this.props.pins.length > 0){
+         return this.props.pins[0].board_id != this.props.selectedBoard.id;
+      }
+      return true;
+   }
+
+   loadPins = () => {
+      Geocode.setApiKey("AIzaSyD1VaM_1NFrzGdWPo38YSbx3_IwZ0QODg8");
+      var promises = [];
+
+      if(this.props.applications){
+         this.applications = toSingleArray(this.props.applications);
+
+         this.applications.map(application => {
+            if(application.location){
+               promises.push(this.computeGeocode(application.location, application.id))
+            }else{
+               promises.push(this.computeGeocode('London', application.id))
+            }
+         });
    
-         if(this.props.applications){
-            this.applications = toSingleArray(this.props.applications);
-   
-            this.applications.map(application => {
-               if(application.location){
-                  promises.push(this.computeGeocode(application.location, application.id))
-               }else{
-                  promises.push(this.computeGeocode('London', application.id))
-               }
+         Promise.all(promises)
+            .then((results) => {
+               this.props.setPins(results);
+            })
+            .catch((e) => {
+               console.log(e);
             });
-      
-            Promise.all(promises)
-               .then((results) => {
-                  this.props.setPins(results);
-               })
-               .catch((e) => {
-                  console.log(e);
-               });
-         }
       }
    }
 
@@ -71,6 +77,10 @@ class DashboardMap extends React.Component {
       const { isLoading, pins } = this.props;
       if (isLoading) {
          return <Loader />
+      }
+
+      if(!pins || this.boardHasChanged()){
+         this.loadPins();
       }
 
       return (

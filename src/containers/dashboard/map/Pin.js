@@ -32,8 +32,8 @@ class Pin extends React.Component {
       const { id, company_name, address } = this.props;
       return (
          <div className="pin">
-            <MapPin id={company_name + id} size={34} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}/>
-            <Popover placement="bottom" isOpen={this.state.isOpen} target={company_name + id} toggle={this.toggle}>
+            <MapPin id={"pin"+id} size={34} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}/>
+            <Popover placement="bottom" isOpen={this.state.isOpen} target={"pin"+id} toggle={this.toggle}>
                <PopoverHeader>{company_name}</PopoverHeader>
                <PopoverBody>{address}</PopoverBody>
             </Popover>

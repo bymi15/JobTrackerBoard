@@ -54,6 +54,10 @@ class Board extends React.Component {
             board: { id: this.props.selectedBoard.id },
             board_list: { id: parseInt(data.board_list) },
          };
+
+         if(data.logo_url){
+            application.icon = data.logo_url;
+         }
          
          this.props.createApplication(application);
    

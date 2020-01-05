@@ -51,6 +51,7 @@ class AddJobModal extends React.Component {
 
     render() {
         const { boardlists, isOpen, toggle, saveModal, companies } = this.props;
+        const { company_name, board_list, logo_url } = this.state;
 
         return (
             <React.Fragment>
@@ -61,7 +62,7 @@ class AddJobModal extends React.Component {
                     <ModalBody className="text-center m-3">
                         <FormGroup className="text-left">
                             <Label>Company:</Label>
-                            <CompanySearchText name="company_name" value={this.state.company_name} onChange={this.handleChange} handleSelectCompany={this.handleSelectCompany} companies={companies}/>
+                            <CompanySearchText name="company_name" value={company_name} onChange={this.handleChange} logo_url={logo_url} handleSelectCompany={this.handleSelectCompany} companies={companies}/>
                         </FormGroup>
                         <FormGroup className="text-left">
                             <Label>Job Title:</Label>
@@ -69,7 +70,7 @@ class AddJobModal extends React.Component {
                         </FormGroup>
                         <FormGroup className="text-left">
                             <Label>Stage:</Label>
-                            <Input type="select" name="board_list" value={this.state.board_list} onChange={this.handleChange}>
+                            <Input type="select" name="board_list" value={board_list} onChange={this.handleChange}>
                                 {
                                     boardlists ? boardlists.map(boardlist => (
                                         <option key={boardlist.id} value={boardlist.id}>{boardlist.title}</option>

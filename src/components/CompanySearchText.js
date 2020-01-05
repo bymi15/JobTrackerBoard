@@ -4,11 +4,16 @@ import LetterAvatar from "./LetterAvatar";
 
 import {
    Input,
+   InputGroup,
+   InputGroupAddon,
+   InputGroupText,
    ListGroup,
    ListGroupItem
 } from "reactstrap";
 
 import PerfectScrollbar from "react-perfect-scrollbar";
+
+import { Search } from "react-feather";
 
 class CompanySearchText extends React.Component {
    constructor(props) {
@@ -42,25 +47,35 @@ class CompanySearchText extends React.Component {
    };
 
    render() {
-      const { name, value, placeholder, onChange, companies, handleSelectCompany } = this.props;
+      const { name, value, placeholder, onChange, logo_url, companies, handleSelectCompany } = this.props;
       const { showResults } = this.state;
 
       if (showResults && companies && companies.length > 0) {
          return (
             <React.Fragment>
-               <Input 
-                  style={{width: "100%", marginBottom: "10px"}}
-                  ref={this.inputRef}
-                  onChange={onChange}
-                  placeholder={placeholder}
-                  type="text"
-                  name={name}
-                  value={value}
-                  onClick={this.handleClick}
-                  onBlur={this.handleBlur}
-                  onKeyPress={this.handleEnterKey}
-                  autoFocus
-               />
+               <InputGroup className="mb-3">
+                  <Input 
+                     ref={this.inputRef}
+                     onChange={onChange}
+                     placeholder={placeholder}
+                     type="text"
+                     name={name}
+                     value={value}
+                     onClick={this.handleClick}
+                     onBlur={this.handleBlur}
+                     onKeyPress={this.handleEnterKey}
+                     autoComplete="off"
+                     autoFocus
+                  />
+                  <InputGroupAddon addonType="append">
+                     <InputGroupText>
+                        {
+                           logo_url ? <img src={logo_url} width="20" height="20" className="rounded-circle"/>
+                           : <Search size={18}/>
+                        }
+                     </InputGroupText>
+                  </InputGroupAddon>
+               </InputGroup>
                
                <PerfectScrollbar component="ul" options={{suppressScrollX: true}} style={{maxHeight: "200px", paddingLeft: "0px", paddingRight: "12px"}}>
                   <ListGroup>
@@ -81,19 +96,29 @@ class CompanySearchText extends React.Component {
          )
       } else {
          return (
-            <Input 
-               style={{width: "100%", marginBottom: "10px"}}
-               ref={this.inputRef}
-               onChange={onChange}
-               placeholder={placeholder}
-               type="text"
-               name={name}
-               value={value}
-               onClick={this.handleClick}
-               onBlur={this.handleBlur}
-               onKeyPress={this.handleEnterKey}
-               autoFocus
-            />
+            <InputGroup>
+               <Input 
+                  ref={this.inputRef}
+                  onChange={onChange}
+                  placeholder={placeholder}
+                  type="text"
+                  name={name}
+                  value={value}
+                  onClick={this.handleClick}
+                  onBlur={this.handleBlur}
+                  onKeyPress={this.handleEnterKey}
+                  autoComplete="off"
+                  autoFocus
+               />
+               <InputGroupAddon addonType="append">
+                  <InputGroupText>
+                     {
+                        logo_url ? <img src={logo_url} width="20" height="20" className="rounded-circle"/>
+                        : <Search size={18}/>
+                     }
+                  </InputGroupText>
+               </InputGroupAddon>
+            </InputGroup>
          )
       }
    }

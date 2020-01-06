@@ -128,33 +128,38 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         #only consider for ordering updates
         order_index = serializer.validated_data.get('order_index')
-        if order_index:
+
+        if order_index is not None:
             board_list = serializer.validated_data.get('board_list')
+            current_board = self.get_object().board
             prev_board_list_id = self.get_object().board_list.id
             prev_order_index = self.get_object().order_index
+            application_id = self.get_object().id
+            shift_val = abs(order_index - prev_order_index) + 1
 
             if prev_board_list_id != board_list.id:
                 #shift jobs (below) down one
-                Application.objects.filter(board_list=board_list, board=self.get_object().board, order_index__gte=order_index).update(order_index=F('order_index') + 1)
+                Application.objects.filter(board_list=board_list, board=current_board, order_index__gte=order_index).update(order_index=F('order_index') + 1)
+                Application.objects.filter(pk=application_id).update(order_index=order_index, board_list=board_list)
                 #re-order previous board list
-                applications = Application.objects.filter(board_list=board_list, board=self.get_object().board).order_by('order_index')
-                for c, application in enumerate(applications):
-                    application.order_index = c
+                applications = Application.objects.filter(board_list=prev_board_list_id, board=self.get_object().board).order_by('order_index')
+                for i, application in enumerate(applications):
+                    application.order_index = i
                     application.save()
-            elif order_index > prev_order_index:
-                #shift jobs (below) up one
-                Application.objects.filter(board_list=board_list, board=self.get_object().board, order_index__gte=order_index).update(order_index=F('order_index') - 1)
-            elif order_index < prev_order_index:
-                #shift jobs (above) down one
-                Application.objects.filter(board_list=board_list, board=self.get_object().board, order_index__lte=order_index).update(order_index=F('order_index') + 1)
+            else:
+                if order_index > prev_order_index:
+                    #shift jobs (below) up one
+                    Application.objects.filter(board_list=board_list, board=current_board, order_index__lte=order_index).exclude(pk=application_id).update(order_index=F('order_index') - shift_val)
+                elif order_index < prev_order_index:
+                    #shift jobs (above) down one
+                    Application.objects.filter(board_list=board_list, board=current_board, order_index__gte=order_index).exclude(pk=application_id).update(order_index=F('order_index') + shift_val)
+                #re-order new board list
+                applications = Application.objects.filter(board_list=board_list, board=current_board).order_by('order_index')
 
-            serializer.save()
+                for i, application in enumerate(applications):
+                    application.order_index = i
+                    application.save()
 
-            # #re-order new board list
-            applications = Application.objects.filter(board_list=board_list, board=self.get_object().board).order_by('order_index')
-            for i, application in enumerate(applications):
-                application.order_index = i
-                application.save()
         else:
             serializer.save()
 
